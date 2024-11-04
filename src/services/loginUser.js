@@ -8,7 +8,7 @@ const loginUser = async (email, password) => {
 
   try {
     const response = await axios.post(
-      "https://gaen.uz/api/v1/auth/login/",
+      "https://shaxzodbek-muxtorov.jprq.site/api/v1/auth/login/",
       payload
     );
     return response.data;

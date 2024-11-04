@@ -50,7 +50,7 @@ export default function ArtworkDetails() {
             <div data-aos="fade-up">
               <img
                 classname="w-full object-cover h-[380px] rounded-xl mt-5"
-                src={`https://gaen.uz${data?.art_img}`}
+                src={`https://shaxzodbek-muxtorov.jprq.site${data?.art_img}`}
                 alt="Main Image 1"
               />
             </div>
