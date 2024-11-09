@@ -1,5 +1,5 @@
 const registerUser = async (first_name) => {
-  const url = "https://shaxzodbek-muxtorov.jprq.site/api/v1/auth/register/";
+  const url = "https://api.gaen.uz/api/v1/auth/register/";
   try {
     const response = await fetch(url, {
       method: "POST",

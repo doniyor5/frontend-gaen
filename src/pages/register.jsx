@@ -104,7 +104,7 @@ export default function Register() {
     e.preventDefault();
 
     const url =
-      "https://shaxzodbek-muxtorov.jprq.site/api/v1/auth/verify-email/";
+      "https://api.gaen.uz/api/v1/auth/verify-email/";
 
     try {
       const response = await fetch(url, {

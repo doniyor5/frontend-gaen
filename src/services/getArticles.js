@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL = "https://shaxzodbek-muxtorov.jprq.site/api/v1/article/user/art/";
+const URL = "https://api.gaen.uz/api/v1/article/user/art/";
 
 const ApiCall = {
   GetArticles: async (page) => {
@@ -21,14 +21,14 @@ const ApiCall = {
 
   emailSend: async (email) => {
     const { data } = await axios.post(
-      "http://shaxzodbek-muxtorov.jprq.site/api/v1/auth/password-reset/",
+      "https://api.gaen.uz/api/v1/auth/password-reset/",
       email
     );
     return data;
   },
   resetPassword: async (post) => {
     const { data } = await axios.patch(
-      "http://shaxzodbek-muxtorov.jprq.site/api/v1/auth/set-new-password/",
+      "https://api.gaen.uz/api/v1/auth/set-new-password/",
       post
     );
     return data;
@@ -44,7 +44,7 @@ const ApiCall = {
   },
   logOut: async (refresh_token, token) => {
     const { data } = await axios.post(
-      "http://shaxzodbek-muxtorov.jprq.site/api/v1/auth/logout/",
+      "https://api.gaen.uz/api/v1/auth/logout/",
       refresh_token,
       {
         headers: {
