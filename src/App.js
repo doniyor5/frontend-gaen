@@ -17,6 +17,7 @@ import ResetPassword from "./pages/reset-password.js";
 import CreateArticle from "./pages/create-article.js";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProfilePage from "./pages/profile";
 
 export default function App() {
   useEffect(() => {
@@ -67,8 +68,8 @@ export default function App() {
       element: <ResetPassword />,
     },
     {
-      path: "/forget-password",
-      element: <EmailSend />,
+      path: "/profile",
+      element: <ProfilePage />,
     },
     {
       path: "/create-article",

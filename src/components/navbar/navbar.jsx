@@ -63,7 +63,7 @@ export default function Navbar() {
           </li>
 
           {isUserAuth ? (
-            <Link to={"/forget-password"}>
+            <Link to={"/profile"}>
               <h3>{name}</h3>
             </Link>
           ) : (
