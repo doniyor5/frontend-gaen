@@ -37,7 +37,7 @@ export default function Profile(){
 
 
     if (error) return <p>{error}</p>;
-    if (!userInfo) return <p>Loading... </p>
+    if (!userInfo) return <p className="text-center my-auto">Loading... </p>
 
     return (
         <section className="relative pt-36 pb-24">

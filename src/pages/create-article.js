@@ -5,7 +5,7 @@ import Input from "../components/input/input";
 import Textarea from "../components/input/textarea";
 import SelectInput from "../components/input/select-input";
 import FileInput from "../components/input/file-input";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const CreateArticle = () => {
   const [title, setTitle] = useState("");
@@ -105,12 +105,14 @@ const CreateArticle = () => {
           />
           <FileInput setState={setArtImg} />
           <div className="flex justify-between items-end mt-2">
-            <button
+
+              <button
               type="submit"
               className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2"
             >
               Send
             </button>
+
             {error && <p className="text-red-400">{error}</p>}
           </div>
         </form>
