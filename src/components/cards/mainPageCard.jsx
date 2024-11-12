@@ -11,6 +11,8 @@ export default function MainPageCard({
   filter,
 }) {
   const [data, setData] = useState([]);
+  const [mail, setMail] = useState("");
+  const [token, setToken] = useState("");
 
   const GetArts = async (page) => {
     try {
@@ -31,6 +33,14 @@ export default function MainPageCard({
       }
     }
   };
+
+  useEffect(()=>{
+    const email = localStorage.getItem("user_3email");
+    const tokenAuth = localStorage.getItem("token");
+    setMail(email);
+    setToken(tokenAuth)
+    console.log(token)
+  })
 
   useEffect(() => {
     GetArts(page);
@@ -58,8 +68,7 @@ export default function MainPageCard({
             className="w-full"
             src={
               item?.art_img
-                ? `https://api.gaen.uz${item?.art_img}`
-                : "https://www.tea-tron.com/antorodriguez/blog/wp-content/uploads/2016/04/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png"
+
             }
             alt={"#img"}
           />
@@ -91,6 +100,20 @@ export default function MainPageCard({
                   See more
                 </button>
               </Link>
+              {/* delete button if post email = user email */}
+              {mail === item?.email ? (
+                <button
+                  className="bg-red-500 py-3 px-5 text-white w-fit font-[600] text-[12px] rounded-lg"
+                  onClick={() => {
+                    ApiCall.deleteArticle(item.slug, token);
+                    GetArts()
+                  }}
+                >
+                  Delete 
+                </button>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

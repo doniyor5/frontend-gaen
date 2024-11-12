@@ -53,8 +53,8 @@ export default function Register() {
     }
 
     // Validate password
-    if (formData.password.length < 6) {
-      setPasswordError("Password must be at least 6 characters long.");
+    if (formData.password.length < 8) {
+      setPasswordError("Password must be at least 8 characters long.");
       isValid = false;
     } else if (formData.password !== formData.confirmPassword) {
       setPasswordError("Passwords do not match.");

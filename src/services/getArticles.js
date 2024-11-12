@@ -1,6 +1,7 @@
 import axios from "axios";
 const URL = "https://api.gaen.uz/api/v1/article/user/art/";
 
+
 const ApiCall = {
   GetArticles: async (page) => {
     const { data } = await axios.get(URL, {
@@ -10,12 +11,13 @@ const ApiCall = {
       headers: {
         Accept: "application/json",
       },
+      withCredentials: true,
       responseType: "json",
     });
     return data;
   },
   GetArticle: async (slug) => {
-    const { data } = await axios.get(`${URL}${slug}`);
+    const { data } = await axios.get(`https://api.gaen.uz/api/v1/article/user/art/`);
     return data;
   },
 
@@ -55,6 +57,20 @@ const ApiCall = {
     );
     return data;
   },
-};
+
+  // method  for delete article
+deleteArticle: async (id, token) => {
+  const {data} = await axios.delete(
+      `https://api.gaen.uz/api/v1/article/user/art/${id}/`,
+      token,
+      {
+          headers: {
+              Authorization: `Bearer ${token}`,
+          },
+      }
+      );
+  return data;
+  }
+}
 
 export default ApiCall;

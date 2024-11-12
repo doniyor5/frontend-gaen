@@ -18,6 +18,7 @@ import CreateArticle from "./pages/create-article.js";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProfilePage from "./pages/profile";
+import axios from "axios";
 
 export default function App() {
   useEffect(() => {
@@ -71,6 +72,10 @@ export default function App() {
       path: "/profile",
       element: <ProfilePage />,
     },
+      {
+          path: "/forgot-password",
+          element: <EmailSend />
+      },
     {
       path: "/create-article",
       element: <CreateArticle />,
@@ -86,7 +91,10 @@ export default function App() {
       v7_normalizeFormMethod: true,
     },
   });
+
+
   return (
+
     <>
       <RouterProvider router={router} />
       <ToastContainer
