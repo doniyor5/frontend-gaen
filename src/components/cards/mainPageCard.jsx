@@ -34,13 +34,20 @@ export default function MainPageCard({
     }
   };
 
-  useEffect(()=>{
-    const email = localStorage.getItem("user_3email");
-    const tokenAuth = localStorage.getItem("token");
-    setMail(email);
-    setToken(tokenAuth)
-    console.log(token)
-  })
+    useEffect(() => {
+        const email = localStorage.getItem("user_email");
+        const tokenAuth = localStorage.getItem("token");
+
+        if (email && tokenAuth) {
+            setMail(email);
+            setToken(tokenAuth);
+            console.log("Email:", email);
+            console.log("Token:", tokenAuth);
+        } else {
+            console.error("Email yoki token topilmadi!");
+        }
+    }, []);
+
 
   useEffect(() => {
     GetArts(page);
@@ -94,27 +101,31 @@ export default function MainPageCard({
               {item?.description}
             </p>
 
-            <div className="mt-3">
-              <Link to={`/details/${item?.slug}`}>
-                <button className="bg-[#0A1F44] py-3 px-5 text-white w-fit font-[600] text-[12px] rounded-lg">
-                  See more
-                </button>
-              </Link>
-              {/* delete button if post email = user email */}
-              {mail === item?.email ? (
-                <button
-                  className="bg-red-500 py-3 px-5 text-white w-fit font-[600] text-[12px] rounded-lg"
-                  onClick={() => {
-                    ApiCall.deleteArticle(item.slug, token);
-                    GetArts()
-                  }}
-                >
-                  Delete 
-                </button>
-              ) : (
-                ""
-              )}
-            </div>
+              <div className="mt-3">
+                  <Link to={`/details/${item?.slug}`}>
+                      <button className="bg-[#0A1F44] py-3 px-5 text-white w-fit font-[600] text-[12px] rounded-lg">
+                          See more
+                      </button>
+                  </Link>
+
+                  {mail == item.email ? (
+                          <button
+                                  className="bg-red-500 py-3 px-5 text-white w-fit font-[600] text-[12px] rounded-lg"
+                                  onClick={async () => {
+                                      try {
+                                          await ApiCall.deleteArticle(item.slug, token);
+                                          setData((prevData) => prevData.filter((article) => article.slug !== item.slug));
+                                      } catch (error) {
+                                          console.error("Error deleting article:", error);
+                                      }
+                                  }}
+                          >
+                              Delete
+                          </button>
+                  ) : (
+                          ""
+                  )}
+              </div>
           </div>
         </div>
       ))}
