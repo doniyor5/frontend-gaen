@@ -6,7 +6,6 @@ import Card4 from "../../assets/img/objectives_img-4.png";
 import doniyor from "../../assets/img/doniyor.jpg";
 import dildora from "../../assets/img/dildora.jpg";
 import shaxzodbek from "../../assets/img/shaxzodbek.jpeg";
-import NavbarButton from "../../components/buttons/navbarButton";
 
 import DataObjectImage1 from "../../assets/img/HalikovMirazam.jpeg";
 import DataObjectImage2 from "../../assets/img/ValeraPavlov.jpeg";
