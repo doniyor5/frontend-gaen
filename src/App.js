@@ -18,9 +18,10 @@ import CreateArticle from "./pages/create-article.js";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProfilePage from "./pages/profile";
-import axios from "axios";
+
 
 export default function App() {
+
   useEffect(() => {
     AOS.init({
       offset: 200,

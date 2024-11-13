@@ -18,21 +18,24 @@ export default function Navbar() {
     setName(nameFinder);
   };
 
-  const handleLogOut = async () => {
-    if (!refresh_token) {
-      setError("could not logout");
-      return;
-    }
-    try {
-      await ApiCall.logOut({ refresh_token }, token);
-      localStorage.removeItem("user_full_name");
-      localStorage.removeItem("token");
-      localStorage.removeItem("refresh_token");
-      navigate(`${location.pathname}`);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+    const handleLogOut = async () => {
+        if (!refresh_token || !token) {
+            setError("Authentication token or refresh token is missing");
+            return;
+        }
+
+        try {
+            await ApiCall.logOut(refresh_token, token);
+            localStorage.removeItem("user_full_name");
+            localStorage.removeItem("token");
+            localStorage.removeItem("refresh_token");
+            navigate(`${location.pathname}`);
+        } catch (error) {
+            console.error("Logout Error:", error.response ? error.response.data : error.message);
+            setError("Logout failed. Please try again.");
+        }
+    };
+
   useEffect(() => {
     find();
   }, []);
@@ -64,7 +67,7 @@ export default function Navbar() {
 
           {isUserAuth ? (
             <Link to={"/profile"}>
-              <h3>{name}</h3>
+              <button>Profil</button>
             </Link>
           ) : (
             <Link to={"/login"}>
