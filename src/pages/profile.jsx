@@ -10,19 +10,13 @@ export default function Profile() {
         lastName: "",
         email: "",
         country: "",
-        profilePic: '',
+        profilePic: null,
     });
-
-    console.log(profile.firstName);
-    console.log(profile.country);
-    console.log(profile.email);
-
-
     const [userToken, setToken] = useState("");
     const [userInfo, setUserInfo] = useState(null);
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
-    const [previewPic, setPreviewPic] = useState(null);
+    const [Pic, setPic] = useState(null);
 
     useEffect(() => {
         const tokenAuth = localStorage.getItem("token");
@@ -69,21 +63,16 @@ export default function Profile() {
         }
 
         try {
-            const formData = new FormData();
-            formData.append("first_name", profile.firstName);
-            formData.append("last_name", profile.lastName);
-            formData.append("email", profile.email);
-            formData.append("country", profile.country);
-
-
-            if (profile.profilePic instanceof File) {
-                formData.append("profile_pic", profile.profilePic);
-            }
-
+            const formData = {};
+            formData.firstName = profile.firstName;
+            formData.lastName = profile.lastName;
+            formData.country = profile.country;
+           formData.profile_pic = profile.profilePic;
 
             console.log("Sending request with token:", token);
+            console.log(formData)
 
-            const response = await axios.patch(
+            const response = await axios.put(
                     "https://api.gaen.uz/api/v1/auth/updateProfile/",
                     formData,
                     {
@@ -94,7 +83,7 @@ export default function Profile() {
                     }
             );
 
-
+            console.log("API response:", response)
             setSuccessMessage("Profile updated successfully!");
             setError(null);
 
@@ -103,21 +92,20 @@ export default function Profile() {
                 first_name: profile.firstName,
                 email: profile.email,
                 country: profile.country,
-                profile_pic: response.data.user.profile_pic,
+                profile_pic: response.data.user.profile_pic
             };
+
 
             setUserInfo(updatedUserInfo);
             localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo));
 
-            console.log('Profile update response:', response);
+
         } catch (error) {
             if (error.response) {
-
                 if (error.response.status === 401) {
                     setError('Session expired. Please log in again.');
                     localStorage.removeItem('token');
                     localStorage.removeItem('userInfo');
-
                 } else {
                     setError('Error updating profile. Please try again.');
                 }
@@ -128,6 +116,7 @@ export default function Profile() {
             }
         }
     };
+
 
 
 
@@ -142,7 +131,7 @@ export default function Profile() {
         const file = e.target.files[0];
         if (file) {
             setProfile((prevProfile) => ({ ...prevProfile, profilePic: file }));
-            setPreviewPic(URL.createObjectURL(file));
+            setPic(URL.createObjectURL(file));
         }
     };
 
@@ -157,7 +146,7 @@ export default function Profile() {
                     <div className="flex items-center justify-center sm:justify-start relative z-10 mb-5">
                         <label htmlFor="profilePicUpload" className="cursor-pointer">
                             <img
-                                    src={previewPic || userInfo?.profile_pic}
+                                    src={Pic || userInfo.profilePic}
                                     alt="Profile"
                                     className="border-4 border-solid w-48 bg-white h-48 border-white rounded-full object-cover"
                             />
