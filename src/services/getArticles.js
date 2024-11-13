@@ -21,7 +21,7 @@ const ApiCall = {
     },
 
     GetArticle: async (slug) => {
-        const { data } = await axios.get(`${url}${slug}`);
+        const { data } = await axios.get(`https://api.gaen.uz/api/v1/article/user/art/${slug}`);
         return data;
     },
 

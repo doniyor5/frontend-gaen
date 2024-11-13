@@ -3,8 +3,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 export default function Profile() {
-
-
     const [profile, setProfile] = useState({
         firstName: "",
         lastName: "",
@@ -17,6 +15,7 @@ export default function Profile() {
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [Pic, setPic] = useState(null);
+    const [isImageLoading, setIsImageLoading] = useState(true);
 
     useEffect(() => {
         const tokenAuth = localStorage.getItem("token");
@@ -35,12 +34,14 @@ export default function Profile() {
             fetchProfile(tokenAuth);
         }
     }, []);
+
     const fetchProfile = async (userToken) => {
         try {
             const response = await axios.get('https://api.gaen.uz/api/v1/auth/get_user_info/', {
                 headers: { Authorization: `Bearer ${userToken}` }
             });
             setUserInfo(response.data.user);
+            console.log(response.data.user);
             setProfile({
                 firstName: response.data.user.first_name,
                 email: response.data.user.email,
@@ -53,7 +54,6 @@ export default function Profile() {
         }
     };
 
-
     const updateUserProfile = async () => {
         const token = localStorage.getItem("token");
         if (!token) {
@@ -63,14 +63,15 @@ export default function Profile() {
         }
 
         try {
-            const formData = {};
-            formData.firstName = profile.firstName;
-            formData.lastName = profile.lastName;
-            formData.country = profile.country;
-           formData.profile_pic = profile.profilePic;
+            const formData = {
+                firstName: profile.firstName,
+                lastName: profile.lastName,
+                country: profile.country,
+                profile_pic: profile.profilePic,
+            };
 
             console.log("Sending request with token:", token);
-            console.log(formData)
+            console.log("Form data:", formData);
 
             const response = await axios.put(
                     "https://api.gaen.uz/api/v1/auth/updateProfile/",
@@ -83,22 +84,22 @@ export default function Profile() {
                     }
             );
 
-            console.log("API response:", response)
+            console.log("API response:", response);
             setSuccessMessage("Profile updated successfully!");
             setError(null);
+
+            const profilePic = response.data?.user?.profile_pic || userInfo.profile_pic;
 
             const updatedUserInfo = {
                 ...userInfo,
                 first_name: profile.firstName,
                 email: profile.email,
                 country: profile.country,
-                profile_pic: response.data.user.profile_pic
+                profile_pic: profilePic,
             };
-
 
             setUserInfo(updatedUserInfo);
             localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo));
-
 
         } catch (error) {
             if (error.response) {
@@ -117,27 +118,27 @@ export default function Profile() {
         }
     };
 
-
-
-
     const handleProfileChange = (e) => {
         const { name, value } = e.target;
         setProfile((prevProfile) => ({ ...prevProfile, [name]: value }));
     };
-
-
 
     const handleProfilePicChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             setProfile((prevProfile) => ({ ...prevProfile, profilePic: file }));
             setPic(URL.createObjectURL(file));
+            setIsImageLoading(false); // Image is already selected, so no need to show loading
         }
     };
 
+    const handleImageLoad = () => {
+        setIsImageLoading(false); // Hide loading state once image is loaded
+    };
 
     if (error) return <p>{error}</p>;
     if (!userInfo) return <p>Loading... </p>;
+    const base_url = "https://api.gaen.uz/";
 
     return (
             <section className="relative pt-36 pb-24">
@@ -145,10 +146,13 @@ export default function Profile() {
                 <div className="w-full max-w-7xl mx-auto px-6 md:px-8">
                     <div className="flex items-center justify-center sm:justify-start relative z-10 mb-5">
                         <label htmlFor="profilePicUpload" className="cursor-pointer">
+                            {isImageLoading && <p>Loading image...</p>}
                             <img
-                                    src={Pic || userInfo.profilePic}
+                                    src={Pic || base_url + userInfo.profile_pic}
                                     alt="Profile"
                                     className="border-4 border-solid w-48 bg-white h-48 border-white rounded-full object-cover"
+                                    onLoad={handleImageLoad}
+                                    style={{ display: isImageLoading ? 'none' : 'block' }}
                             />
                             <input
                                     id="profilePicUpload"
@@ -196,17 +200,15 @@ export default function Profile() {
                             />
                         </div>
 
-
-                                <Link to="/forgot-password">
-                                    <span className="block text-sm mx-1 mt-2 text-red-500">Forgot Password</span>
-                                </Link>
+                        <Link to="/forgot-password">
+                            <span className="block text-sm mx-1 mt-2 text-red-500">Forgot Password</span>
+                        </Link>
                         <button type="submit"
                                 className="lg:mt-12 md:mt-12 lg:mr-24 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-100 text-blue-600 hover:bg-blue-200 mt-10">
                             Update Profile
                         </button>
                     </form>
                 </div>
-
             </section>
     );
 }
