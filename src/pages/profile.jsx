@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import CountrySelect from '../components/select/select';
 
 export default function Profile() {
     const [profile, setProfile] = useState({
         firstName: "",
         lastName: "",
         email: "",
-        country: "",
+        country: "", // Update this field
         profilePic: null,
     });
     const [userToken, setToken] = useState("");
@@ -41,7 +42,6 @@ export default function Profile() {
                 headers: { Authorization: `Bearer ${userToken}` }
             });
             setUserInfo(response.data.user);
-            console.log(response.data.user);
             setProfile({
                 firstName: response.data.user.first_name,
                 email: response.data.user.email,
@@ -54,6 +54,13 @@ export default function Profile() {
         }
     };
 
+    const handleCountryChange = (selectedCountry) => {
+        setProfile((prevProfile) => ({
+            ...prevProfile,
+            country: selectedCountry?.name || "", // Set the country field in profile
+        }));
+    };
+
     const updateUserProfile = async () => {
         const token = localStorage.getItem("token");
         if (!token) {
@@ -63,15 +70,14 @@ export default function Profile() {
         }
 
         try {
-            const formData = {
-                firstName: profile.firstName,
-                lastName: profile.lastName,
-                country: profile.country,
-                profile_pic: profile.profilePic,
-            };
+            const formData = new FormData();
+            formData.append("firstName", profile.firstName);
+            formData.append("lastName", profile.lastName);
+            formData.append("country", profile.country);
 
-            console.log("Sending request with token:", token);
-            console.log("Form data:", formData);
+            if (profile.profilePic instanceof File) {
+                formData.append("profile_pic", profile.profilePic);
+            }
 
             const response = await axios.put(
                     "https://api.gaen.uz/api/v1/auth/updateProfile/",
@@ -84,7 +90,6 @@ export default function Profile() {
                     }
             );
 
-            console.log("API response:", response);
             setSuccessMessage("Profile updated successfully!");
             setError(null);
 
@@ -144,9 +149,16 @@ export default function Profile() {
             <section className="relative pt-36 pb-24">
                 <img src="https://pagedone.io/asset/uploads/1705473908.png" alt="cover-image" className="w-full absolute top-0 left-0 z-0 h-60 object-cover" />
                 <div className="w-full max-w-7xl mx-auto px-6 md:px-8">
+
                     <div className="flex items-center justify-center sm:justify-start relative z-10 mb-5">
                         <label htmlFor="profilePicUpload" className="cursor-pointer">
-                            {isImageLoading && <p>Loading image...</p>}
+                            {isImageLoading && <input
+                                    id="profilePicUpload"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleProfilePicChange}
+                                    className="hidden"
+                            />}
                             <img
                                     src={Pic || base_url + userInfo.profile_pic}
                                     alt="Profile"
@@ -165,10 +177,10 @@ export default function Profile() {
                     </div>
                     <div className="flex items-center justify-center flex-col sm:flex-row max-sm:gap-5 sm:justify-between mb-5"></div>
 
-                    {successMessage && <p className="success-message">{successMessage}</p>}
+                    {successMessage && <p className="text-emerald-600 success-message">{successMessage}</p>}
                     {error && <p className="error-message">{error}</p>}
-                    <h1 className="text-center text-white text-2xl mt-10">Update Profile & Password</h1>
-                    <form onSubmit={(e) => {
+                    <h1 className="text-center text-white text-2xl mt-10">Update Profile</h1>
+                    <form encType="multipart/form-data" method="PUT" onSubmit={(e) => {
                         e.preventDefault();
                         updateUserProfile();
                     }} className="lg:ml-32 flex flex-col max-sm:flex-wrap max-sm:justify-center items-center">
@@ -190,18 +202,16 @@ export default function Profile() {
                                     onChange={handleProfileChange}
                                     className="py-3 ps-4 pe-10 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                             />
+
                             <label className="block text-sm mb-2 text-white">Country</label>
-                            <input
-                                    type="text"
-                                    name="country"
-                                    value={profile.country}
-                                    onChange={handleProfileChange}
-                                    className="py-3 ps-4 pe-10 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
+                            <CountrySelect
+                                            selectedCountry={{ name: profile.country }}
+                                            onChange={handleCountryChange}
                             />
                         </div>
 
                         <Link to="/forgot-password">
-                            <span className="block text-sm mx-1 mt-2 text-red-500">Forgot Password</span>
+                            <span className="block lg:mr-24 text-sm mx-auto mt-2 text-red-500">Forgot Password</span>
                         </Link>
                         <button type="submit"
                                 className="lg:mt-12 md:mt-12 lg:mr-24 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-100 text-blue-600 hover:bg-blue-200 mt-10">

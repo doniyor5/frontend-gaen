@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import MainPage from "./pages/aboutPage.jsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AdditionalPages from "./pages/additionalPages";
 import ArtworkDetails from "./pages/artworkDetails";
 import Login from "./pages/login";
@@ -31,6 +32,8 @@ export default function App() {
       once: true,
     });
   }, []);
+
+  const queryClient = new QueryClient();
 
   const routes = [
     {
@@ -88,15 +91,21 @@ export default function App() {
   ];
 
   const router = createBrowserRouter(routes, {
-    future: {
-      v7_normalizeFormMethod: true,
-    },
+      future: {
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+          v7_fetcherPersist: true,
+          v7_partialHydration: true,
+          v7_skipActionErrorRevalidation: true,
+          v7_normalizeFormMethod: true,
+      },
   });
 
 
   return (
 
     <>
+
       <RouterProvider router={router} />
       <ToastContainer
         position="top-right"
@@ -111,6 +120,7 @@ export default function App() {
         theme="colored"
         transition={Bounce}
       />
+
     </>
   );
 }

@@ -101,7 +101,7 @@ export default function MainPageCard({
               {item?.description}
             </p>
 
-              <div className="mt-3">
+              <div className="mt-3 flex sm:gap-10 md:gap-20 lg:gap-28">
                   <Link to={`/details/${item?.slug}`}>
                       <button className="bg-[#0A1F44] py-3 px-5 text-white w-fit font-[600] text-[12px] rounded-lg">
                           See more

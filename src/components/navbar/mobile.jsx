@@ -2,13 +2,20 @@ import React, { useState } from 'react'
 import { BiHome, BiMenu } from 'react-icons/bi'
 import { MdFeaturedPlayList } from 'react-icons/md'
 import { TiArrowBackOutline } from 'react-icons/ti'
-import { Link } from 'react-router-dom'
+import {Link, useLocation, useNavigate} from 'react-router-dom'
 import NavLogo from "../../assets/img/GAEN.png"
 import NavbarButton from '../buttons/navbarButton'
+import ApiCall from "../../services/getArticles";
 
 export default function Mobile() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const isUserAuth = !!localStorage.getItem("token");
+    const token = localStorage.getItem("token");
+    const refresh_token = localStorage.getItem("refresh_token");
+    const [error, setError] = useState("");
 
-	const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false)
 
 	const handleOpen = () => {
 		setOpen(!open)
@@ -17,6 +24,23 @@ export default function Mobile() {
    const handleClose = () => {
     setOpen(false)
   }
+    const handleLogOut = async () => {
+        if (!refresh_token || !token) {
+            setError("Authentication token or refresh token is missing");
+            return;
+        }
+
+        try {
+            await ApiCall.logOut(refresh_token, token);
+            localStorage.removeItem("user_full_name");
+            localStorage.removeItem("token");
+            localStorage.removeItem("refresh_token");
+            navigate(`${location.pathname}`);
+        } catch (error) {
+            console.error("Logout Error:", error.response ? error.response.data : error.message);
+            setError("Logout failed. Please try again.");
+        }
+    };
 
 
 	return (
@@ -49,10 +73,21 @@ export default function Mobile() {
 								Features
 							</Link>
 						</li>
-						<div className='w-full'>
-							<Link to={'/login'}>
-							<NavbarButton buttonText={'Log in'} />
-							</Link>
+						<div className='w-full flex flex-col gap-5'>
+                            {isUserAuth ? (
+                                    <Link to={"/profile"}>
+                                        <NavbarButton buttonText={"Profil"} />
+                                    </Link>
+                            ) : (
+                                    <Link to={"/login"}>
+                                        <NavbarButton buttonText={"Log in"} />
+                                    </Link>
+                            )}
+                            {isUserAuth && (
+                                    <Link onClick={handleLogOut}>
+                                        <NavbarButton buttonText={"Log Out"} />
+                                    </Link>
+                            )}
 						</div>
 					</ul>
 				</div>

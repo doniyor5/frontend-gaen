@@ -18,7 +18,9 @@ const ApiCall = {
             responseType: "json",
         });
         return data;
+
     },
+
 
     GetArticle: async (slug) => {
         const { data } = await axios.get(`https://api.gaen.uz/api/v1/article/user/art/${slug}`);
