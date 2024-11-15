@@ -62,73 +62,68 @@ export default function MainPageCard({
   if (filteredData.length === 0) {
     return <h2>Not found</h2>;
   }
-
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
-      {filteredData.map((item, index) => (
-        <div
-          data-aos="fade-up"
-          key={index}
-          className="md:w1/3 bg-white p-3 rounded-xl"
-        >
-          <img
-            className="w-full"
-            src={
-              item?.art_img
-
-            }
-            alt={"#img"}
-          />
-          <div className="py-3 px-4">
-            <h3 className="text-[#16192C] text-[16px] font-[600]">
-              {item?.title}
-            </h3>
-
-            <div className="flex gap-1 items-center my-3">
-              <img className="w-4" src={IdCard} alt={"#icon"} />
-              <p className="text-[#4D4D4D] font-[600] text-[12px]">
-                {item?.art_name}
-              </p>
+    return (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 justify-items-center px-4 py-8">
+                {filteredData.map((item, index) => (
+                        <div
+                                key={index}
+                                data-aos="fade-up"
+                                className="flex flex-col bg-white rounded-xl shadow-lg overflow-hidden w-full sm:max-w-sm"
+                        >
+                            <img
+                                    className="w-full h-48 object-cover"
+                                    src={item?.art_img || "defaultImage.jpg"}
+                                    alt={`Art from ${item?.art_name}`}
+                            />
+                            <div className="flex flex-col justify-between flex-1 p-4">
+                                <h3 className="text-[#16192C] text-lg font-semibold">
+                                    {item?.title}
+                                </h3>
+                                <div className="my-3">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <img className="w-5 h-5" src={IdCard} alt="ID Card Icon" />
+                                        <p className="text-gray-600 font-medium text-sm">
+                                            {item?.art_name}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <img className="w-4 h-4" src={Location} alt="Location Icon" />
+                                        <p className="text-gray-600 font-medium text-sm">
+                                            {item?.country}
+                                        </p>
+                                    </div>
+                                </div>
+                                <p className="mt-3 text-gray-700 text-sm line-clamp-3">
+                                    {item?.description}
+                                </p>
+                                <div className="mt-4 flex items-center justify-between">
+                                    <Link to={`/details/${item?.slug}`}>
+                                        <button className="bg-[#0A1F44] hover:bg-[#0B2B61] transition-colors py-2 px-4 text-white font-semibold text-sm rounded-lg">
+                                            See more
+                                        </button>
+                                    </Link>
+                                    {mail === item.email && (
+                                            <button
+                                                    className="bg-red-500 hover:bg-red-600 transition-colors py-2 px-4 text-white font-semibold text-sm rounded-lg"
+                                                    onClick={async () => {
+                                                        try {
+                                                            await ApiCall.deleteArticle(item.slug, token);
+                                                            setData((prevData) =>
+                                                                    prevData.filter((article) => article.slug !== item.slug)
+                                                            );
+                                                        } catch (error) {
+                                                            console.error("Error deleting article:", error);
+                                                        }
+                                                    }}
+                                            >
+                                                Delete
+                                            </button>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                ))}
             </div>
-            <div className="flex gap-1 items-center">
-              <img className="w-3.5" src={Location} alt={"#location"} />
-              <p className="text-[#4D4D4D] font-[600] text-[12px]">
-                {item?.country}
-              </p>
-            </div>
+    );
 
-            <p className="mt-3 overflow-hidden text-[#425466] font-[400]">
-              {item?.description}
-            </p>
-
-              <div className="mt-3 flex sm:gap-10 md:gap-20 lg:gap-28">
-                  <Link to={`/details/${item?.slug}`}>
-                      <button className="bg-[#0A1F44] py-3 px-5 text-white w-fit font-[600] text-[12px] rounded-lg">
-                          See more
-                      </button>
-                  </Link>
-
-                  {mail == item.email ? (
-                          <button
-                                  className="bg-red-500 py-3 px-5 text-white w-fit font-[600] text-[12px] rounded-lg"
-                                  onClick={async () => {
-                                      try {
-                                          await ApiCall.deleteArticle(item.slug, token);
-                                          setData((prevData) => prevData.filter((article) => article.slug !== item.slug));
-                                      } catch (error) {
-                                          console.error("Error deleting article:", error);
-                                      }
-                                  }}
-                          >
-                              Delete
-                          </button>
-                  ) : (
-                          ""
-                  )}
-              </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
 }
