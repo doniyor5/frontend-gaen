@@ -74,12 +74,12 @@ export default function AboutCard() {
                         </h1>
                     </div>
                     <div data-aos="fade-up" className="md:w-2/4">
-                        <img className="w-full" style={{borderRadius:"10px"}} src={Card1} alt=""/>
+                        <img className="w-full" style={{borderRadius: "10px"}} src={Card1} alt=""/>
                     </div>
                 </div>
                 <div className="flex flex-wrap-reverse md:flex-nowrap justify-between md:gap-28 items-center mb-24">
                     <div data-aos="fade-up" className="w-full md:w-2/4">
-                        <img className="w-full"  style={{borderRadius:"10px"}}  src={Card2} alt=""/>
+                        <img className="w-full" style={{borderRadius: "10px"}} src={Card2} alt=""/>
                     </div>
                     <div data-aos="fade-up" className="md:w-2/4 text-white">
                         <h1 className="mt-3 md:mt-0 text-4xl font-[600] leading-10">
@@ -94,12 +94,12 @@ export default function AboutCard() {
                         </h1>
                     </div>
                     <div data-aos="fade-up" className="md:w-2/4">
-                        <img className="w-full"  style={{borderRadius:"10px"}}   src={Card3} alt=""/>
+                        <img className="w-full" style={{borderRadius: "10px"}} src={Card3} alt=""/>
                     </div>
                 </div>
                 <div className="flex flex-wrap-reverse md:flex-nowrap justify-between md:gap-28 items-center mb-24">
                     <div data-aos="fade-up" className="w-full md:w-2/4">
-                        <img className="w-full"  style={{borderRadius:"10px"}}  src={Card4} alt=""/>
+                        <img className="w-full" style={{borderRadius: "10px"}} src={Card4} alt=""/>
                     </div>
                     <div data-aos="fade-up" className="md:w-2/4 text-white">
                         <h1 className="mt-3 md:mt-0 text-4xl font-[600] leading-10">
