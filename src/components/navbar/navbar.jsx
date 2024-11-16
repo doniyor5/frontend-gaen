@@ -56,7 +56,7 @@ export default function Navbar() {
           )}
 
           <li>
-            <Link to={"/main"}>Main</Link>
+            <Link to={"/main"}>Gallery</Link>
           </li>
           <li>
             <Link to={"/about"}>About</Link>

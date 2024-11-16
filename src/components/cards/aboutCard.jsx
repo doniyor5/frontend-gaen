@@ -1,8 +1,8 @@
 import React from "react";
-import Card1 from "../../assets/img/objectives_img-1.png";
-import Card2 from "../../assets/img/objectives_img-2.png";
-import Card3 from "../../assets/img/objectives_img-3.png";
-import Card4 from "../../assets/img/objectives_img-4.png";
+import Card1 from "../../assets/img/001.jpg";
+import Card2 from "../../assets/img/002.jpg";
+import Card3 from "../../assets/img/003.jpg";
+import Card4 from "../../assets/img/004.png";
 import doniyor from "../../assets/img/doniyor.jpg";
 import dildora from "../../assets/img/dildora.jpg";
 import shaxzodbek from "../../assets/img/shaxzodbek.jpeg";
@@ -72,29 +72,19 @@ export default function AboutCard() {
                         <h1 className="mt-10 md:mt-0 text-4xl font-[600] leading-10">
                             Promote Cultural Exchange
                         </h1>
-                        <p className="my-3 md:my-6  font-[500] text-[16px] leading-5">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's standard dummy text
-                            ever since the 1500s
-                        </p>
                     </div>
                     <div data-aos="fade-up" className="md:w-2/4">
-                        <img className="w-full" src={Card1} alt=""/>
+                        <img className="w-full" style={{borderRadius: "10px"}} src={Card1} alt=""/>
                     </div>
                 </div>
                 <div className="flex flex-wrap-reverse md:flex-nowrap justify-between md:gap-28 items-center mb-24">
                     <div data-aos="fade-up" className="w-full md:w-2/4">
-                        <img className="w-full" src={Card2} alt=""/>
+                        <img className="w-full" style={{borderRadius: "10px"}} src={Card2} alt=""/>
                     </div>
                     <div data-aos="fade-up" className="md:w-2/4 text-white">
                         <h1 className="mt-3 md:mt-0 text-4xl font-[600] leading-10">
                             Enhance Learning
                         </h1>
-                        <p className="my-3 md:my-6  font-[500] text-[16px] leading-5">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's standard dummy text
-                            ever since the 1500s
-                        </p>
                     </div>
                 </div>
                 <div className="md:flex justify-between gap-28 items-center mb-24">
@@ -102,29 +92,19 @@ export default function AboutCard() {
                         <h1 className="mt-3 md:mt-0  text-4xl font-[600] leading-10">
                             Support Emerging Artists
                         </h1>
-                        <p className="my-3 md:my-6  font-[500] text-[16px] leading-5">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's standard dummy text
-                            ever since the 1500s
-                        </p>
                     </div>
                     <div data-aos="fade-up" className="md:w-2/4">
-                        <img className="w-full" src={Card3} alt=""/>
+                        <img className="w-full" style={{borderRadius: "10px"}} src={Card3} alt=""/>
                     </div>
                 </div>
                 <div className="flex flex-wrap-reverse md:flex-nowrap justify-between md:gap-28 items-center mb-24">
                     <div data-aos="fade-up" className="w-full md:w-2/4">
-                        <img className="w-full" src={Card4} alt=""/>
+                        <img className="w-full" style={{borderRadius: "10px"}} src={Card4} alt=""/>
                     </div>
                     <div data-aos="fade-up" className="md:w-2/4 text-white">
                         <h1 className="mt-3 md:mt-0 text-4xl font-[600] leading-10">
                             Foster Collaboration
                         </h1>
-                        <p className="my-3 md:my-6  font-[500] text-[16px] leading-5">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's standard dummy text
-                            ever since the 1500s
-                        </p>
                     </div>
                 </div>
 
