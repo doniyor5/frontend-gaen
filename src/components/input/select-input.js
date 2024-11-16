@@ -4,10 +4,10 @@ const SelectInput = ({ state, setState, category }) => {
     return (
         <div>
             <label
-                className="block mb-2 text-sm font-medium text-gray-500 dark:text-black"
+                className="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
                 htmlFor="categories"
             >
-                Choose a category
+                 Category
             </label>
             <select
                 id="categories"

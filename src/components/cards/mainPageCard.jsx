@@ -41,10 +41,8 @@ export default function MainPageCard({
         if (email && tokenAuth) {
             setMail(email);
             setToken(tokenAuth);
-            console.log("Email:", email);
-            console.log("Token:", tokenAuth);
         } else {
-            console.error("Email yoki token topilmadi!");
+
         }
     }, []);
 

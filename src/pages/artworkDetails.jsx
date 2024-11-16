@@ -96,7 +96,7 @@ export default function ArtworkDetails() {
     if (commentError) return <div>Error: {commentError.message}</div>;
 
 
-    console.log(userProfile)
+
 
     return (
             <>
@@ -146,12 +146,12 @@ export default function ArtworkDetails() {
                                                 </h2>
                                             </div>
                                             <form className="mb-6" onSubmit={handlePostComment}>
-                                                <div className="py-2 px-4 mb-4 bg-white rounded-lg border border-gray-200 dark:bg-gray-800">
+                                                <div className="py-2 px-4 mb-4 bg-white rounded-lg border border-gray-200 dark:bg-white">
                                                 <textarea
                                                         value={newComment}
                                                         onChange={(e) => setNewComment(e.target.value)}
                                                         rows="6"
-                                                        className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white"
+                                                        className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-black"
                                                         placeholder="Write a comment..."
                                                         required
                                                 ></textarea>

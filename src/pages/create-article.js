@@ -53,11 +53,6 @@ const CreateArticle = () => {
         setArtImg(artImg);
         console.log(artImg)
 
-        if (!artImg) {
-            setError("Please select an image.");
-            return;
-        }
-
 
 
         try {

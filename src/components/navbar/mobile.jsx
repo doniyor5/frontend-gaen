@@ -58,7 +58,7 @@ export default function Mobile() {
 						<li className='bg-slate-900 w-[150px] py-2 px-3 rounded-md'>
 							<Link className=' flex gap-2 items-center' to={'/main'}>
 								<BiHome className='text-white text-xl' />
-								Main
+								Gallery
 							</Link>
 						</li>
 						<li className='bg-slate-900 w-[150px] py-2 px-3 rounded-md'>

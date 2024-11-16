@@ -23,6 +23,7 @@ export default function Register() {
     const [otp, setOtp] = useState(false);
     const [otpValue, setOtpValue] = useState("");
     const [loading, setLoading] = useState(false);
+    const [country, setCountry] = useState("");
 
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
@@ -37,8 +38,9 @@ export default function Register() {
     const handleCountryChange = (selectedCountry) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            country: selectedCountry,
+            country: selectedCountry?.code || selectedCountry?.name,
         }));
+       setCountry(selectedCountry);
     };
 
     const validateInputs = () => {
@@ -232,8 +234,11 @@ export default function Register() {
                             <div className="flex flex-col mt-6">
                                 <CountrySelect
                                         value={formData.country}
-                                        selectedCountry={formData.country} onChange={handleCountryChange}
+                                        selectedCountry={country}
+                                        onChange={(selectedCountry) => handleCountryChange(selectedCountry)}
                                 />
+
+
                                 {countryError && <p className="text-red-500 text-sm">{countryError}</p>}
                             </div>
                             <div className="flex flex-col mt-6">
@@ -253,6 +258,7 @@ export default function Register() {
                                         <label className="text-[#344054]">Enter OTP</label>
                                         <input
                                                 type="text"
+                                                style={{border: '0.01px solid grey'}}
                                                 className="mt-2 py-2 px-2 text-[12px] md:py-3 poppins_ md:px-4 outline-none text-[#344054] rounded-md md:rounded-xl md:text-[16px]"
                                                 value={otpValue}
                                                 onChange={(e) => setOtpValue(e.target.value)}

@@ -118,7 +118,7 @@ export default function AboutCard() {
 
                     <div data-aos="fade-up" className="md:flex gap-6 justify-center">
                         {data.map((d) => (
-                                <div className="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center shadow-md hover:shadow-xl transform hover:scale-105 transition-transform duration-300">
+                                <div className="bg-gray-800 mt-3 rounded-lg p-6 flex flex-col items-center text-center shadow-md hover:shadow-xl transform hover:scale-105 transition-transform duration-300">
                                     <img
                                             className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover mb-6 border-4 border-gray-700"
                                             src={d.image}

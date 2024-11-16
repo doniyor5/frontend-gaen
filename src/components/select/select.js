@@ -37,11 +37,11 @@ export default function CountrySelect({ selectedCountry, onChange }) {
 
     return (
         <Listbox value={selectedCountry} onChange={handleChange}>
-            <Label className="block text-sm font-medium text-gray-500 dark:text-white">Davlatni tanlang</Label>
+            <Label className="block mt-2 text-sm font-medium text-gray-500 dark:text-white">Davlatni tanlang</Label>
             <div className="relative h-12 mt-2">
-                <ListboxButton className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm">
-                    <span className="flex items-center">
-                        <span className="ml-3 block truncate">
+                <ListboxButton className="relative dark:bg-gray-600 w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm">
+                    <span className="flex  items-center">
+                        <span className="ml-3 text-gray-500 dark:text-white block truncate">
                             {selectedCountry ? selectedCountry.name : 'Davlat tanlanmagan'}
                         </span>
                     </span>
@@ -50,13 +50,13 @@ export default function CountrySelect({ selectedCountry, onChange }) {
                     </span>
                 </ListboxButton>
 
-                <ListboxOptions className="absolute z-10 mt-1 h-72 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                <ListboxOptions className="absolute z-10 text-white mt-1 h-72 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
                     {countries.length > 0 ? (
                         countries.map((country) => (
                             <ListboxOption
                                 key={country.code}
                                 value={country}
-                                className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-indigo-600 hover:text-white"
+                                className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-blue-900 hover:text-white"
                             >
                                 <div className="flex items-center">
                                     <span className="ml-3 block truncate font-normal group-hover:font-semibold">
