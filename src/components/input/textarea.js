@@ -5,7 +5,7 @@ const Textarea = ({ name, setState }) => {
     <div>
       <label
         htmlFor={name}
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        className="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
       >
         {name}
       </label>

@@ -18,36 +18,47 @@ const CreateArticle = () => {
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
-    const { data, isLoading } = useQuery({
+
+    const { data, isLoading, error: queryError } = useQuery({
         queryKey: ["getCategory"],
-        queryFn: () => ApiCall.GetArticles(),
+        queryFn: ApiCall.GetCategory,
         refetchOnWindowFocus: false,
     });
 
+
+
     const handleCountryChange = (selectedCountry) => {
-        setCountry(selectedCountry?.name || ""); // Set the selected country
+        if (selectedCountry) {
+            setCountry(selectedCountry);
+        } else {
+            setCountry("");
+        }
     };
+
 
     const token = localStorage.getItem("token");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validate the form fields
-        if (!country || !description || !artImg || !category || !title || !artName) {
-            setError("All fields are required.");
-            return;
-        }
 
         const formData = new FormData();
         formData.append("title", title);
         formData.append("art_name", artName);
-        formData.append("country", country);
+        formData.append("country", country?.name);
         formData.append("email", localStorage.getItem("user_email"));
         formData.append("description", description);
         formData.append("art_img", artImg);
-        formData.append("category", category);
-        formData.append("user", localStorage.getItem("user_full_name"));
+        formData.append("category", category?.name);
+        setArtImg(artImg);
+        console.log(artImg)
+
+        if (!artImg) {
+            setError("Please select an image.");
+            return;
+        }
+
+
 
         try {
             await ApiCall.postArticle(formData, token);
@@ -59,6 +70,14 @@ const CreateArticle = () => {
             setError("Failed to create article.");
         }
     };
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (queryError) {
+        return <div>Failed to fetch categories: {queryError.message}</div>;
+    }
 
     return (
         <div className="px-3">
@@ -81,10 +100,19 @@ const CreateArticle = () => {
                     />
                     <CountrySelect
                         value={country}
-                        selectedCountry={{ name: country }}
+                        selectedCountry={country}
                         onChange={handleCountryChange}
                     />
-                    <SelectInput state={category} setState={setCategory} category={data?.results} />
+                    <SelectInput
+                        state={category}
+                        setState={(selectedCategorySlug) => {
+                            const selectedCategory = data.find(cat => cat.slug === selectedCategorySlug);
+                            setCategory(selectedCategory); // setCategory should be an object representing the selected category
+                            console.log("Selected Category:", selectedCategory); // Debugging output
+                        }}
+                        category={data || []}
+                    />
+
                     <Textarea state={description} setState={setDescription} name={"Description"} />
                     <FileInput setState={setArtImg} />
                     <div className="flex justify-between items-end mt-2">
@@ -102,5 +130,6 @@ const CreateArticle = () => {
         </div>
     );
 };
+
 
 export default CreateArticle;

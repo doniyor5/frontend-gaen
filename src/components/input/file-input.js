@@ -1,17 +1,16 @@
 import React from "react";
 
 const FileInput = ({ setState }) => {
-  const handleFileChange = (e) => {
-    e.preventDefault();
-    const file = e.target.files[0];
-    if (file) {
-      setState(file);
-    }
-  };
+    const handleFileChange = (event) => {
+        const file = event.target.files[0]; // Get the selected file
+        setState(file); // Pass the file to the parent component state
+    };
+
+
   return (
     <div>
       <label
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        className="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
         htmlFor="file_input"
       >
         Upload file

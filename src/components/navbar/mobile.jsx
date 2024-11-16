@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { BiHome, BiMenu } from 'react-icons/bi'
-import { MdFeaturedPlayList } from 'react-icons/md'
+import {MdCreate, MdDarkMode, MdFeaturedPlayList, MdPerson} from 'react-icons/md'
 import { TiArrowBackOutline } from 'react-icons/ti'
 import {Link, useLocation, useNavigate} from 'react-router-dom'
 import NavLogo from "../../assets/img/GAEN.png"
@@ -74,10 +74,21 @@ export default function Mobile() {
 							</Link>
 						</li>
 						<div className='w-full flex flex-col gap-5'>
+                            {isUserAuth && (
+                                    <li className='bg-slate-900 w-[150px] py-2 pl-2 rounded-md'>
+                                        <Link className="flex flex-row items-center gap-1" to="/create-article">
+                                            <MdCreate className='text-white text-xl' />
+                                             <p>  Create Article </p>
+                                        </Link>
+                                    </li>
+                            )}
                             {isUserAuth ? (
-                                    <Link to={"/profile"}>
-                                        <NavbarButton buttonText={"Profil"} />
+                                    <li className='bg-slate-900 w-[150px] py-2 pl-2 rounded-md'>
+                                    <Link className="flex flex-row items-center gap-2 py-2" to={"/profile"}>
+                                       <MdPerson className='text-white text-xl' />
+                                        <p>Profile</p>
                                     </Link>
+                                    </li>
                             ) : (
                                     <Link to={"/login"}>
                                         <NavbarButton buttonText={"Log in"} />
@@ -85,7 +96,7 @@ export default function Mobile() {
                             )}
                             {isUserAuth && (
                                     <Link onClick={handleLogOut}>
-                                        <NavbarButton buttonText={"Log Out"} />
+                                        <NavbarButton  buttonText={"Log Out"} />
                                     </Link>
                             )}
 						</div>

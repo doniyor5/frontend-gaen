@@ -18,6 +18,7 @@
     "heroicons": "^2.1.5",
     "http-browserify": "^1.7.0",
     "https-browserify": "^1.0.0",
+    "jwt-decode": "^4.0.0",
     "motion": "^11.11.15",
     "new-project-react": "file:",
     "preline": "^2.5.1",

@@ -37,7 +37,7 @@ export default function Register() {
     const handleCountryChange = (selectedCountry) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            country: selectedCountry?.name || "",
+            country: selectedCountry,
         }));
     };
 
@@ -231,6 +231,7 @@ export default function Register() {
                             </div>
                             <div className="flex flex-col mt-6">
                                 <CountrySelect
+                                        value={formData.country}
                                         selectedCountry={formData.country} onChange={handleCountryChange}
                                 />
                                 {countryError && <p className="text-red-500 text-sm">{countryError}</p>}

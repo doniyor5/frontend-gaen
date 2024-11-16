@@ -18,8 +18,34 @@ const ApiCall = {
             responseType: "json",
         });
         return data;
-
     },
+
+    GetCategory: async () => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            throw new Error("Token not found");
+        }
+
+        try {
+            const response = await axios.get(`https://api.gaen.uz/api/v1/article/user/category/`, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+
+            if (response?.data?.results) {
+                return response.data.results;
+            } else {
+                throw new Error("Categories not found in the response.");
+            }
+        } catch (error) {
+            console.error("Error fetching categories:", error);
+            throw new Error("Failed to fetch categories");
+        }
+    },
+
 
 
     GetArticle: async (slug) => {
@@ -44,7 +70,7 @@ const ApiCall = {
     },
 
     postArticle: async (article, token) => {
-        const { data } = await axios.post(url, article, {
+        const { data } = await axios.post(`https://api.gaen.uz/api/v1/article/user/art/`, article, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",

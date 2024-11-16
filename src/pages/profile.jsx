@@ -8,7 +8,7 @@ export default function Profile() {
         firstName: "",
         lastName: "",
         email: "",
-        country: "", // Update this field
+        country: "",
         profilePic: null,
     });
     const [userToken, setToken] = useState("");
@@ -57,7 +57,7 @@ export default function Profile() {
     const handleCountryChange = (selectedCountry) => {
         setProfile((prevProfile) => ({
             ...prevProfile,
-            country: selectedCountry?.name || "", // Set the country field in profile
+            country: selectedCountry?.name,
         }));
     };
 
@@ -133,7 +133,7 @@ export default function Profile() {
         if (file) {
             setProfile((prevProfile) => ({ ...prevProfile, profilePic: file }));
             setPic(URL.createObjectURL(file));
-            setIsImageLoading(false); // Image is already selected, so no need to show loading
+            setIsImageLoading(false);
         }
     };
 
@@ -161,10 +161,10 @@ export default function Profile() {
                             />}
                             <img
                                     src={Pic || base_url + userInfo.profile_pic}
-                                    alt="Profile"
+                                    alt=".."
                                     className="border-4 border-solid w-48 bg-white h-48 border-white rounded-full object-cover"
                                     onLoad={handleImageLoad}
-                                    style={{ display: isImageLoading ? 'none' : 'block' }}
+
                             />
                             <input
                                     id="profilePicUpload"
@@ -183,7 +183,7 @@ export default function Profile() {
                     <form encType="multipart/form-data" method="PUT" onSubmit={(e) => {
                         e.preventDefault();
                         updateUserProfile();
-                    }} className="lg:ml-32 flex flex-col max-sm:flex-wrap max-sm:justify-center items-center">
+                    }} className="lg:ml-32 flex flex-col  max-sm:flex-wrap max-sm:justify-center items-center">
                         {/* Editable Fields */}
                         <div className="w-full max-w-7xl mx-auto px-6 md:px-8">
                             <label className="block text-sm mb-2 text-white">Full Name</label>
@@ -192,7 +192,7 @@ export default function Profile() {
                                     name="firstName"
                                     value={profile.firstName}
                                     onChange={handleProfileChange}
-                                    className="py-3 ps-4 pe-10 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
+                                    className="py-3 ps-4 pe-10  block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                             />
                             <label className="block text-sm mb-2 text-white">Email</label>
                             <input
@@ -200,13 +200,14 @@ export default function Profile() {
                                     name="email"
                                     value={profile.email}
                                     onChange={handleProfileChange}
-                                    className="py-3 ps-4 pe-10 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
+                                    className="py-3 ps-4 pe-10 block w-full border-gray-200 rounded-lg  text-sm focus:border-blue-500 focus:ring-blue-500"
                             />
 
-                            <label className="block text-sm mb-2 text-white">Country</label>
+
                             <CountrySelect
-                                            selectedCountry={{ name: profile.country }}
-                                            onChange={handleCountryChange}
+
+                                    selectedCountry={{ name: profile.country }}
+                                    onChange={handleCountryChange}
                             />
                         </div>
 
