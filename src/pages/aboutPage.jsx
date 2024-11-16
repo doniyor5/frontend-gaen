@@ -31,7 +31,7 @@ export default function MainPage() {
         <div data-aos="fade-up" className="mt-12 px-7 md:px-24 text-white">
           <h2 className="text-2xl md:text-3xl font-[400]">Mission: </h2>
           <p className="text-xl md:text-2xl font-[400] mt-3">
-            The Global Arts Education Network (GAEN) is dedicated to fostering a
+            The Global Arts Exchange Network (GAEN) is dedicated to fostering a
             global community where artists, educators, and students come
             together to share knowledge, experiences, and creativity. Our
             mission is to bridge cultural gaps and promote artistic exchange

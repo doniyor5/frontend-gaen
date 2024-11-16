@@ -79,7 +79,7 @@ export default function Mobile() {
                                         onClick={handleClose}
                                 >
                                     <BiHome className="text-xl" />
-                                    Main
+                                    Gallery
                                 </Link>
                             </li>
                             <li>
