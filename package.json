@@ -15,7 +15,7 @@
     "buffer": "^6.0.3",
     "cross-env": "^7.0.3",
     "date-fns": "^4.1.0",
-    "heroicons": "^2.1.5",
+    "heroicons": "^2.2.0",
     "http-browserify": "^1.7.0",
     "https-browserify": "^1.0.0",
     "jwt-decode": "^4.0.0",
